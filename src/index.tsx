@@ -21,7 +21,9 @@ root.render(
           "colorBgSpotlight": "#036ac0",
           "colorBgLayout": "#01223e",
           "colorBgMask": "rgba(0, 0, 0, 0.45)",
-          "colorBgContainer": "#022a4c"
+          "colorBgContainer": "#022a4c",
+          "colorBorder": "rgba(230, 201, 14, 0.32)",
+          "colorBorderSecondary": "rgba(230, 201, 14, 0.32)"
         },
         "algorithm": theme.darkAlgorithm,
       }}

@@ -109,6 +109,7 @@ const CreateSheet = () => {
         sections.map((s, i) => {
           return <Panel header={s} key={s}>
             <Table
+
               size='small'
               onRow={(record, rowIndex) => {
                 return {

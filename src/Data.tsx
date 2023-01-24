@@ -1,4 +1,5 @@
-import { Section } from './App'
+import { Typography } from 'antd'
+import { Role, Section } from './App'
 
 export const RolesData: Section[] = [
   {
@@ -49,8 +50,15 @@ export const RolesData: Section[] = [
   }
 ]
 
+const roleDescRenderer = (data: Role) => {
+  const { canBeBlocked, description, name } = data
+  return <div>
+    <Typography.Text>{description}</Typography.Text><br />
+    <Typography.Text type={canBeBlocked ? "warning" : "secondary"}>{canBeBlocked ? `Blocked by ${name}` : "Cannot be blocked"}</Typography.Text>
+  </div>
+}
+
 export const Columns = [
   { title: "Name", dataIndex: "name", render: (t: string) => t },
-  { title: "Description", dataIndex: "description", render: (t: string) => t },
-  { title: "Blocked", dataIndex: "blocked", render: (t: string) => t }
+  { title: "Description", render: roleDescRenderer }
 ]
