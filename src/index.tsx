@@ -15,7 +15,7 @@ root.render(
         "token": {
           "colorPrimary": "#31711e",
           "wireframe": true,
-          "borderRadius": 0
+          "borderRadius": 2
         },
         "algorithm": theme.darkAlgorithm,
 
