@@ -12,13 +12,15 @@ root.render(
   <React.StrictMode>
     <ConfigProvider
       theme={{
+
         "token": {
-          "colorPrimary": "#31711e",
-          "wireframe": true,
-          "borderRadius": 2
+          "colorPrimaryBg": "#315eb9",
+          "borderRadius": 6,
+          "wireframe": false,
+          "colorPrimary": "#6699e0",
+          "colorBgBase": "#01223e"
         },
         "algorithm": theme.darkAlgorithm,
-
       }}
     >
       <App />
