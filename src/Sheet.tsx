@@ -9,6 +9,9 @@ interface ISheetProps {
 const Sheet = (props: ISheetProps) => {
   const { data } = props
 
+  const onBack = () => window.location.href = window.location.href.split("?")[0]
+
+
   return <div>
     <Table
       size='small'
@@ -20,7 +23,7 @@ const Sheet = (props: ISheetProps) => {
       pagination={false}
     /><br />
     <Space>
-      <Button type="primary" onClick={() => window.location.href = "/"}>Back</Button>
+      <Button type="primary" onClick={onBack}>Back</Button>
       <Popover content={<QRCode value={window.location.href} />} title="Share with friends">
         <Button type="primary">QRCode</Button>
       </Popover>
