@@ -104,7 +104,7 @@ const CreateSheet = () => {
 
 
   return <div className="App">
-    <Collapse accordion activeKey={activeKey} onChange={onActiveKeyChange}>
+    <Collapse accordion activeKey={activeKey} style={{ width: "100%" }} onChange={onActiveKeyChange}>
       {
         sections.map((s, i) => {
           return <Panel header={s} key={s}>

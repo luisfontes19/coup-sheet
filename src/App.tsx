@@ -43,7 +43,7 @@ function App() {
   }, [])
 
   return <Layout style={{ minHeight: "100vh" }}>
-    <Layout style={{ maxWidth: "1000px", margin: "auto", padding: "20px" }}>
+    <Layout style={{ maxWidth: "1000px", width: "100%", margin: "auto", padding: "20px" }}>
       <img src={Logo} alt="" style={{ width: "100%" }} />
       <Typography.Title level={3}>Roles</Typography.Title>
 
