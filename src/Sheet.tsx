@@ -11,6 +11,7 @@ const Sheet = (props: ISheetProps) => {
 
   return <div>
     <Table
+      size='small'
       columns={Columns}
       dataSource={
         data?.map((r, i) =>
