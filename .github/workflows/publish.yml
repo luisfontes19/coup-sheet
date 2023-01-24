@@ -1,4 +1,6 @@
 name: Publish Website
+permissions:
+  contents: write
 on:
   push:
     branches: [master]
