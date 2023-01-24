@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import CreateSheet from './CreateSheet'
 import { RolesData } from './Data'
+import Logo from './logo.png'
 import Sheet from './Sheet'
 
 export interface Role {
@@ -43,6 +44,7 @@ function App() {
 
   return <Layout style={{ minHeight: "100vh" }}>
     <Layout style={{ maxWidth: "1000px", margin: "auto", padding: "20px" }}>
+      <img src={Logo} alt="" style={{ width: "100%" }} />
       <Typography.Title level={3}>Roles</Typography.Title>
 
       {selectedData ? <Sheet data={selectedData} /> : <CreateSheet />}

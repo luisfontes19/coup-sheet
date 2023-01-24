@@ -135,7 +135,7 @@ const CreateSheet = () => {
     <br />
     <Space>
       <Button type="primary" onClick={generate}>Generate Sheet</Button>
-      <Button type="primary" danger onClick={generateRandom}>Random Roles</Button>
+      <Button onClick={generateRandom}>Random Roles</Button>
     </Space>
   </div>
 

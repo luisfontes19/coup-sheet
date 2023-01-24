@@ -12,20 +12,23 @@ root.render(
   <React.StrictMode>
     <ConfigProvider
       theme={{
-
         "token": {
-          "colorPrimaryBg": "#315eb9",
+          "colorPrimaryBg": "#d0b60c",
           "borderRadius": 6,
           "wireframe": false,
-          "colorPrimary": "#6699e0",
-          "colorBgBase": "#01223e"
+          "colorPrimary": "#e6c90e",
+          "colorBgBase": "#01223e",
+          "colorBgSpotlight": "#036ac0",
+          "colorBgLayout": "#01223e",
+          "colorBgMask": "rgba(0, 0, 0, 0.45)",
+          "colorBgContainer": "#022a4c"
         },
         "algorithm": theme.darkAlgorithm,
       }}
     >
       <App />
     </ConfigProvider>
-  </React.StrictMode>
+  </React.StrictMode >
 )
 
 // If you want to start measuring performance in your app, pass a function
