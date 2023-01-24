@@ -35,7 +35,7 @@ export const RolesData: Section[] = [
     section: "Special Interest",
     roles: [
       { name: "Communist", description: "Steal up to 3 coins from the wealthiest target, giving them to the poorest player.", canBeBlocked: true },
-      { name: "Customs Officer", description: "Take the 2 Tax tokens. Keep 1, and place the other on a Role card. All other players must pay 1 coin each time they claim that role.", canBeBlocked: false },
+      { name: "Customs Officer", description: "Take the 2 Tax tokens. Keep 1 in front of you to indicate you're receiving a payment. Place the other on a Role card (from the center of the table). All other players must pay 1 coin each time they claim that role.", canBeBlocked: false },
       { name: "Lawyer", description: "Claim all the coins of a player who is eliminated from the game.", canBeBlocked: false },
       { name: "Foreign Consular", description: "Take the 2 Treaty tokens. Keep 1, then give the other to another player of your choice. These two players become allies, and cannot target one another, even by Coup.", canBeBlocked: false },
       { name: "Intellectual", description: "Following a loss of influence, Intellectual takes 5 coins from Treasury. Successful challenge results in loss of another influence. Unsuccessful challenge results in challenger losing 1 influence.", canBeBlocked: false },
