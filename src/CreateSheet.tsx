@@ -1,12 +1,17 @@
 import { Button, Collapse, Space, Table } from 'antd'
 import React, { useState } from 'react'
-import { Role } from './App'
-import { Columns, RolesData } from './Data'
+import { IConfigs, Role } from './App'
+import { Columns } from './Data'
 const { Panel } = Collapse
 
-const CreateSheet = () => {
-  const data = RolesData
-  const sections = data.map((d) => d.section)
+export interface ICreateSheetProps {
+  configs: IConfigs
+}
+
+const CreateSheet = (props: ICreateSheetProps) => {
+
+  const { configs } = props
+  const sections = configs.rolesData.map((d) => d.section)
   const tmp: Record<string, Role[]> = {}
   sections.forEach(s => tmp[s] = [])
 
@@ -59,23 +64,27 @@ const CreateSheet = () => {
     return (evt: any) => {
       delete record["key"]
       const role = record as Role
+      const sectionNumberRoles = configs.rolesData.find(s => s.section === section)!.count
+      let selectedCount = selectedRows[section].length
 
-      if (section === "Special Interest") {
+      if (sectionNumberRoles > 1) {
         const alreadySelected = selectedRows[section].map(s => s.name).includes(role.name)
 
         let d: Role[] = selectedRows[section]
         if (alreadySelected)
           d = selectedRows[section].filter(r => r.name !== role.name)
-        else if (selectedRows[section].length < 2)
+        else if (selectedCount < sectionNumberRoles)
           d = selectedRows[section].concat(role)
+
+        selectedCount = d.length
 
         setSelectedRows({ ...selectedRows, [section]: d })
       }
-      else if (section !== "Special Interest")
+      else
         setSelectedRows({ ...selectedRows, [section]: [role] })
 
       const i = sections.findIndex(s => s === activeKey)
-      if (i < sections.length - 1)
+      if (selectedCount === sectionNumberRoles && i < sections.length - 1)
         setActiveKey(sections[i + 1])
     }
   }
@@ -86,20 +95,24 @@ const CreateSheet = () => {
     for (let i = 0; i < sections.length; i++) {
       const section = sections[i]
 
-      const roles = data[i].roles
+      const roles = configs.rolesData.find(s => s.section === section)!.roles
 
       const random = () => roles[Math.floor(Math.random() * roles.length)]
 
+
       obj[section] = [random()]
+      const count = configs.rolesData.find(s => s.section === section)!.count
 
-      if (section === "Special Interest")
-        obj[section].push(random())
+      for (let j = 1; j < count; j++) {
+        let r = random()
+        while (obj[section].map(r => r.name).includes(r.name))
+          r = random()
 
+        obj[section].push(r)
+      }
     }
 
     generateSheet(obj)
-
-
   }
 
 
@@ -107,6 +120,7 @@ const CreateSheet = () => {
     <Collapse accordion activeKey={activeKey} style={{ width: "100%" }} onChange={onActiveKeyChange}>
       {
         sections.map((s, i) => {
+          const section = configs.rolesData.find(section => section.section === s)
           return <Panel header={s} key={s}>
             <Table
 
@@ -117,13 +131,13 @@ const CreateSheet = () => {
                 }
               }}
               rowSelection={{
-                type: sections[i] === "Special Interest" ? "checkbox" : "radio",
+                type: section!.count === 1 ? "radio" : "checkbox",
                 ...rowSelection(sections[i]),
                 selectedRowKeys: selectedRows[sections[i]].map(r => r.name)
               }}
               columns={Columns}
               dataSource={
-                data[i].roles.map((r, i) =>
+                section!.roles.filter(r => configs.anarchist ? true : r.anarchistExpansion !== true).map((r, i) =>
                   ({ ...r, blocked: r.canBeBlocked ? `Blocked by ${r.name}` : "No", key: r.name }))
               }
               pagination={false}

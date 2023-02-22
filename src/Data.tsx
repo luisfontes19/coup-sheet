@@ -1,6 +1,22 @@
 import { Typography } from 'antd'
 import { Role, Section } from './App'
 
+export interface IAction {
+  name: string
+  description: string
+  anarchistExpansion?: boolean
+}
+
+export const BaseActions: IAction[] = [
+  { name: "Coup", description: "Pay 7, Target an influence." },
+  { name: "Income", description: "Take 1 from treasury" },
+]
+
+export const AnarchistActions: IAction[] = [
+  { name: "Bank", description: "Take 1 coin from treasure and add it to the bank", anarchistExpansion: true },
+  { name: "Social Media", description: "Take 1 card from Court. Return 1 card to the Court", anarchistExpansion: true },
+]
+
 export const RolesData: Section[] = [
   {
     section: "Finance",
@@ -10,7 +26,10 @@ export const RolesData: Section[] = [
       { name: "Banker", description: "Take 3 coins from Treasury.", canBeBlocked: false },
       { name: "Farmer", description: "Take 3 coins from Treasury, keep 2 and give 1 to another player.", canBeBlocked: false },
       { name: "Spy", description: "Take 1 coin from Treasury, then take a second action of the player’s choice. If the player has 10 coins after the first action, the second action must be a Coup.", canBeBlocked: false },
+      { name: "Plantation Owner", description: "Take 1 from treasury. Afterwards all Plantation Owner claiming players gain 1 per each Plantation Owner.", canBeBlocked: false, anarchistExpansion: true },
+      { name: "Financier", description: "Take all coins from the Bank", canBeBlocked: false, anarchistExpansion: true },
     ],
+    count: 1
   },
   {
     section: "Communications",
@@ -20,7 +39,9 @@ export const RolesData: Section[] = [
       { name: "Writer", description: "Draw 1 card from the Court, then if desired, pay 1 coin to draw another. Return same number of cards to Court.", canBeBlocked: false },
       { name: "Newscaster", description: "Pay 1 coin to take 3 cards from the Court, then return any 3 cards to the Court.", canBeBlocked: false },
       { name: "Reporter", description: "Take one coin from Treasury and draw 1 card from the Court, then return one card to Court.", canBeBlocked: false },
-    ]
+    ],
+    count: 1
+
   },
   {
     section: "Force",
@@ -30,7 +51,11 @@ export const RolesData: Section[] = [
       { name: "Guerilla", description: "Pay 4 coins to Treasury to make a target lose 1 influence.", canBeBlocked: true },
       { name: "Judge", description: "Give 3 coins to a target, forcing them to lose a life. If successfully countered or challenged, target keeps the 3 coins.", canBeBlocked: true },
       { name: "Mercenary", description: "Pay 3 coins to place Disappear token on a chosen target. The target loses 1 influence after their next turn.", canBeBlocked: true },
-    ]
+
+      { name: "Anarchist", description: "Any player can pay 3 coins (without claiming Anarchist to place a bomb in front of himself. Players claiming Anarchist (target of the bomb included) can pass or defuse the bomb. The target looses a life", canBeBlocked: false, anarchistExpansion: true },
+      { name: "Paramilitary", description: "Declare a target. Pay 3 if target has 2 cards, 5 if has 1 card. Target looses a life", canBeBlocked: true, anarchistExpansion: true },
+    ],
+    count: 1
   },
   {
     section: "Special Interest",
@@ -45,8 +70,11 @@ export const RolesData: Section[] = [
       { name: "Politician", description: "Steal up to 2 coins from a chosen target.", canBeBlocked: true },
       { name: "Priest", description: "All other players must give Priest 1 coin (if able).", canBeBlocked: true },
       { name: "Protestor", description: "Pay 2 coins, select a target. Any other player may then pay 3 coins to force the target to lose 1 influence.", canBeBlocked: true },
+      { name: "Arms Dealer", description: "Guess a role. Reveal the top 2 cards from Deck. If correct take 4 from treasury", canBeBlocked: false, anarchistExpansion: true },
+      { name: "Socialist", description: "All other players are Targets. Take 1 coin or 1 card from Targets. Keep 1 give others back", canBeBlocked: false, anarchistExpansion: true },
 
-    ]
+    ],
+    count: 2
   }
 ]
 
