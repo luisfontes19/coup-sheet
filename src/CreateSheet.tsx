@@ -24,7 +24,8 @@ const CreateSheet = (props: ICreateSheetProps) => {
 
   const rowSelection = (section: string) => ({
     onChange: (selectedRowKeys: React.Key[], rows: Role[]) => {
-      if ((section === "Special Interest" && rows.length <= 2) || section !== "Special Interest")
+      const count = configs.rolesData.find(s => s.section === section)!.count
+      if (rows.length <= count)
         setSelectedRows({ ...selectedRows, [section]: rows })
 
       const i = sections.findIndex(s => s === activeKey)
@@ -37,8 +38,9 @@ const CreateSheet = (props: ICreateSheetProps) => {
   const generate = () => {
     for (let i = 0; i < sections.length; i++) {
       const section = sections[i]
+      const count = configs.rolesData.find(s => s.section === section)!.count
 
-      if (selectedRows[section].length === 0 || (section === "Special Interest" && selectedRows[section].length !== 2))
+      if (selectedRows[section].length !== count)
         return setActiveKey(section)
 
     }
@@ -55,7 +57,7 @@ const CreateSheet = (props: ICreateSheetProps) => {
       obj[section] = roles.map(r => r.name)
     }
 
-    const d = btoa(JSON.stringify(obj))
+    const d = btoa(JSON.stringify({ sections: obj, extraActions: configs.socialMedia ? ["Social Media"] : [] }))
     window.location.href = `${window.location.href}?data=${d}`
 
   }
@@ -67,24 +69,24 @@ const CreateSheet = (props: ICreateSheetProps) => {
       const sectionNumberRoles = configs.rolesData.find(s => s.section === section)!.count
       let selectedCount = selectedRows[section].length
 
-      if (sectionNumberRoles > 1) {
-        const alreadySelected = selectedRows[section].map(s => s.name).includes(role.name)
 
-        let d: Role[] = selectedRows[section]
-        if (alreadySelected)
-          d = selectedRows[section].filter(r => r.name !== role.name)
-        else if (selectedCount < sectionNumberRoles)
-          d = selectedRows[section].concat(role)
+      const alreadySelected = selectedRows[section].map(s => s.name).includes(role.name)
 
-        selectedCount = d.length
+      let d: Role[] = selectedRows[section]
+      if (alreadySelected)
+        d = selectedRows[section].filter(r => r.name !== role.name)
+      else if (selectedCount < sectionNumberRoles)
+        d = selectedRows[section].concat(role)
 
-        setSelectedRows({ ...selectedRows, [section]: d })
-      }
-      else
-        setSelectedRows({ ...selectedRows, [section]: [role] })
+      selectedCount = d.length
 
+      setSelectedRows({ ...selectedRows, [section]: d })
+
+
+      console.log(selectedCount)
+      console.log(sectionNumberRoles)
       const i = sections.findIndex(s => s === activeKey)
-      if (selectedCount === sectionNumberRoles && i < sections.length - 1)
+      if (selectedCount === sectionNumberRoles)
         setActiveKey(sections[i + 1])
     }
   }

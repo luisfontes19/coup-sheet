@@ -42,13 +42,17 @@ function App() {
       const decoded = atob(data)
       const parsed = JSON.parse(decoded)
 
-      const sections = Object.keys(parsed)
+      const sections = Object.keys(parsed.sections)
 
       const tmp = sections.map(s => {
         const sectionKey = s as Section["section"]
         const section = RolesData.find(d => d.section === sectionKey)
 
-        return parsed[s].map((r: string) => section?.roles.find(role => role.name === r) as Role)
+        // 😑 meh
+        if (parsed.extraActions.includes("Social Media"))
+          setSocialMedia(true)
+
+        return parsed.sections[s].map((r: string) => section?.roles.find(role => role.name === r) as Role)
       })
 
       setSelectedData(tmp.flat())
