@@ -74,13 +74,16 @@ function App() {
       const roles = section.roles.filter(r => anarchist ? true : r.anarchistExpansion !== true)
       section.roles = roles
 
-      // If social media allow more communication roles
-      if (section.section === "Communications") {
-        if (socialMedia)
-          section.count++
-        else
-          if (section.count > 1) section.count--
-      }
+      // // If social media allow more communication roles
+      // this was wrong:
+      // "The Social Media card is added to the blue Communications randomiser deck. If it is drawn as a role card, you add it to the basic actions then draw a new Communications role so you still have 5.""
+      // https://boardgamegeek.com/thread/1651224/coup-anarchy-expansion-what-social-media-action
+      // if (section.section === "Communications") {
+      //   if (socialMedia)
+      //     section.count++
+      //   else
+      //     if (section.count > 1) section.count--
+      // }
       tmp.push(section)
     }
 
