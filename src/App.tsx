@@ -68,10 +68,11 @@ function App() {
     const tmp = []
 
     for (let i = 0; i < RolesData.length; i++) {
-      let section = RolesData[i]
+      let section = { ...RolesData[i] }
 
       // Filter expansion roles
       const roles = section.roles.filter(r => anarchist ? true : r.anarchistExpansion !== true)
+
       section.roles = roles
 
       // // If social media allow more communication roles
